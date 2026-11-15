@@ -57,12 +57,14 @@ class FlightSurgeonAgent:
             }
 
         # Handle specific hazard scenarios
+        # C-4 fix: build a combined type string from ALL hazards so no emergency is silently dropped
+        all_hazard_types = " ".join(h.get("type", "") for h in hazards)
         primary_hazard = hazards[0] if hazards else {}
         hazard_type = primary_hazard.get("type", "")
         action_summary = ""
 
         # Scenario 1: Solar Radiation Event (SPE)
-        if "RADIATION" in hazard_type:
+        if "RADIATION" in all_hazard_types:
             diagnosis = f"CRITICAL RADIATION EVENT: {primary_hazard.get('trigger')} Rapid proton flux exceeds safe EVA operational envelope."
 
             # Tool Call 1: Calculate dosage projection to shelter
@@ -101,7 +103,7 @@ class FlightSurgeonAgent:
             })
 
         # Scenario 2: Hypercapnia (CO2 Scrubber Degradation)
-        elif "HYPERCAPNIA" in hazard_type:
+        elif "HYPERCAPNIA" in all_hazard_types:
             diagnosis = f"ECLSS ATMOSPHERIC CRISIS: {primary_hazard.get('trigger')} Severe risk of hypercapnic narcosis and crew impairment."
 
             # Tool Call 1: Calculate time to critical threshold
@@ -134,6 +136,107 @@ class FlightSurgeonAgent:
                 "inputs": {"protocol_id": protocol_id},
                 "steps_generated": len(checklist)
             })
+
+        # Scenario 3: Hypoxia (SpO2 drop)
+        elif "HYPOXIA" in all_hazard_types:
+            diagnosis = f"HYPOXIA ALERT: {primary_hazard.get('trigger')} Supplemental oxygen required immediately."
+
+            protocol_id = primary_hazard.get("protocol_id", "NASA-HRP-JSC-CN-35747-SEC3.2")
+            query_res = self.tools.query_nasa_guidelines("hypoxia low oxygen saturation SpO2 supplemental oxygen EVA", category="RADIATION_SPE")
+            tool_execution_trace.append({
+                "tool": "query_nasa_guidelines",
+                "inputs": {"query": "hypoxia low SpO2 supplemental oxygen", "category": "RADIATION_SPE"},
+                "output": {"primary_protocol": protocol_id, "status": query_res["status"], "matched_count": query_res.get("matched_count", 0)}
+            })
+            checklist = self.tools.generate_crew_checklist(protocol_id)
+            tool_execution_trace.append({
+                "tool": "generate_crew_checklist",
+                "inputs": {"protocol_id": protocol_id},
+                "steps_generated": len(checklist)
+            })
+            action_summary = f"ADMINISTER SUPPLEMENTAL O2 IMMEDIATELY. SpO2 critical. Monitor continuously."
+
+        # Scenario 4: Bradycardia / Cardiac (vital-sign-only hazard)
+        elif "BRADYCARDIA" in all_hazard_types:
+            diagnosis = f"CARDIAC ALERT: {primary_hazard.get('trigger')} Cardiac monitoring and intervention required."
+
+            protocol_id = primary_hazard.get("protocol_id", "NASA-HRP-JSC-CN-35747-SEC3.2")
+            query_res = self.tools.query_nasa_guidelines("bradycardia cardiac monitoring low heart rate intervention", category="")
+            tool_execution_trace.append({
+                "tool": "query_nasa_guidelines",
+                "inputs": {"query": "bradycardia cardiac monitoring low heart rate", "category": ""},
+                "output": {"primary_protocol": protocol_id, "status": query_res["status"], "matched_count": query_res.get("matched_count", 0)}
+            })
+            checklist = self.tools.generate_crew_checklist(protocol_id)
+            tool_execution_trace.append({
+                "tool": "generate_crew_checklist",
+                "inputs": {"protocol_id": protocol_id},
+                "steps_generated": len(checklist)
+            })
+            action_summary = "CONTINUOUS CARDIAC MONITORING. Prepare AED. Notify ground telemetry. Restrict EVA activities."
+
+        # C-4 fix: compound emergency secondary note — RADIATION + HYPERCAPNIA simultaneously
+        if "RADIATION" in all_hazard_types and "HYPERCAPNIA" in all_hazard_types:
+            co2_hazards = [h for h in hazards if "HYPERCAPNIA" in h.get("type", "")]
+            if co2_hazards:
+                tool_execution_trace.append({
+                    "tool": "secondary_hazard_note",
+                    "inputs": {"compound_emergency": True},
+                    "output": {
+                        "co2_hazard": co2_hazards[0].get("trigger", ""),
+                        "note": "COMPOUND EMERGENCY: CO2 atmospheric crisis concurrent with radiation SPE. Prioritise shelter ingress; deploy auxiliary LiOH on ingress."
+                    }
+                })
+                action_summary += " | COMPOUND: Deploy auxiliary LiOH canisters on shelter ingress."
+
+        # Scenario 3: Hypoxia (SpO2 drop)
+        elif "HYPOXIA" in all_hazard_types:
+            diagnosis = f"HYPOXIA ALERT: {primary_hazard.get('trigger')} Supplemental oxygen required immediately."
+
+            protocol_id = primary_hazard.get("protocol_id", "NASA-HRP-JSC-CN-35747-SEC3.2")
+            query_res = self.tools.query_nasa_guidelines("hypoxia low oxygen saturation SpO2 supplemental oxygen EVA", category="RADIATION_SPE")
+            tool_execution_trace.append({
+                "tool": "query_nasa_guidelines",
+                "inputs": {"query": "hypoxia low SpO2 supplemental oxygen", "category": "RADIATION_SPE"},
+                "output": {"primary_protocol": protocol_id, "status": query_res["status"], "matched_count": query_res.get("matched_count", 0)}
+            })
+            checklist = self.tools.generate_crew_checklist(protocol_id)
+            tool_execution_trace.append({
+                "tool": "generate_crew_checklist",
+                "inputs": {"protocol_id": protocol_id},
+                "steps_generated": len(checklist)
+            })
+            action_summary = f"ADMINISTER SUPPLEMENTAL O2 IMMEDIATELY. SpO2 at {primary_hazard.get('trigger', '')}. Monitor continuously."
+
+        # Scenario 4: Bradycardia / Cardiac (vital-sign-only hazard)
+        elif "BRADYCARDIA" in all_hazard_types:
+            diagnosis = f"CARDIAC ALERT: {primary_hazard.get('trigger')} Cardiac monitoring and intervention required."
+
+            protocol_id = primary_hazard.get("protocol_id", "NASA-HRP-JSC-CN-35747-SEC3.2")
+            query_res = self.tools.query_nasa_guidelines("bradycardia cardiac monitoring low heart rate intervention", category="")
+            tool_execution_trace.append({
+                "tool": "query_nasa_guidelines",
+                "inputs": {"query": "bradycardia cardiac monitoring low heart rate", "category": ""},
+                "output": {"primary_protocol": protocol_id, "status": query_res["status"], "matched_count": query_res.get("matched_count", 0)}
+            })
+            checklist = self.tools.generate_crew_checklist(protocol_id)
+            tool_execution_trace.append({
+                "tool": "generate_crew_checklist",
+                "inputs": {"protocol_id": protocol_id},
+                "steps_generated": len(checklist)
+            })
+            action_summary = "CONTINUOUS CARDIAC MONITORING. Prepare AED. Notify ground telemetry. Restrict EVA activities."
+
+        # C-4 fix: secondary hazard dispatch — if BOTH radiation AND CO2 are active, append CO2 notes
+        if "RADIATION" in all_hazard_types and "HYPERCAPNIA" in all_hazard_types:
+            co2_hazards = [h for h in hazards if "HYPERCAPNIA" in h.get("type", "")]
+            if co2_hazards:
+                tool_execution_trace.append({
+                    "tool": "secondary_hazard_note",
+                    "inputs": {"compound_emergency": True},
+                    "output": {"co2_hazard": co2_hazards[0].get("trigger", ""), "note": "COMPOUND EMERGENCY: CO2 atmospheric crisis concurrent with radiation SPE. Prioritise shelter ingress, then deploy auxiliary LiOH on ingress."}
+                })
+                action_summary += " | COMPOUND: Deploy auxiliary LiOH canisters on shelter ingress."
 
         return {
             "triage_state": state,
