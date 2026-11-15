@@ -1,0 +1,31 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments & secrets
+.env
+.venv
+env/
+venv/
+ENV/
+.secrets.toml
+.streamlit/secrets.toml
+
+# Video & demo media assets (not tracked in Git)
+video/*.mp4
+*.mp4
+video/live_demo_only.html
+video/candidate_demo_60s.html
+video/index.html
+
+# Pytest & cache
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
