@@ -145,7 +145,7 @@ The test suite validates:
 
 Developed for the **NASA International Space Apps Challenge 2026**  
 - **Team:** `AURAstronaut`  
-- **Lead Developer:** Abhigyan Tiwari  
+- **Team Members:** Abhigyan Tiwari, Dhruba Kumar Agarwalla  
 - **Target Category:** *Create Health Monitoring Software for Astronauts on Space Missions*  
 
 ---
