@@ -1,0 +1,17 @@
+{
+  "scenario_id": "SCENARIO-NOMINAL-BASELINE-00",
+  "name": "Nominal Deep Space Baseline Telemetry",
+  "location": "Deep Space Habitat - Orion MPCV Transit",
+  "crew_member": "CDR Marcus Vance (Mission Commander)",
+  "module_volume_m3": 110.0,
+  "nominal_co2_removal_rate_kg_day": 4.1,
+  "time_series": [
+    { "minute": 0, "heart_rate_bpm": 70, "hrv_rmssd_ms": 48.0, "spo2_pct": 98.5, "core_temp_c": 36.8, "ambient_co2_mmHg": 1.2, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.1, "symptom_flag": null, "notes": "Nominal mission operations. All telemetry within NASA-STD-3001 baseline." },
+    { "minute": 5, "heart_rate_bpm": 72, "hrv_rmssd_ms": 47.0, "spo2_pct": 98.5, "core_temp_c": 36.8, "ambient_co2_mmHg": 1.3, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.1, "symptom_flag": null, "notes": "Routine systems check on environmental ECLSS loop." },
+    { "minute": 10, "heart_rate_bpm": 74, "hrv_rmssd_ms": 46.0, "spo2_pct": 98.0, "core_temp_c": 36.9, "ambient_co2_mmHg": 1.4, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.1, "symptom_flag": null, "notes": "Light physical station exercise cycle. Autonomic tone preserved." },
+    { "minute": 15, "heart_rate_bpm": 75, "hrv_rmssd_ms": 45.0, "spo2_pct": 98.0, "core_temp_c": 36.9, "ambient_co2_mmHg": 1.5, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 2.2, "symptom_flag": null, "notes": "Habitation module cabin pressure and gas mixture stable at 101.3 kPa." },
+    { "minute": 20, "heart_rate_bpm": 71, "hrv_rmssd_ms": 49.0, "spo2_pct": 98.5, "core_temp_c": 36.8, "ambient_co2_mmHg": 1.4, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.2, "symptom_flag": null, "notes": "Post-exercise rest. Cardiovascular metrics return smoothly to rest baseline." },
+    { "minute": 25, "heart_rate_bpm": 69, "hrv_rmssd_ms": 51.0, "spo2_pct": 98.5, "core_temp_c": 36.8, "ambient_co2_mmHg": 1.3, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.2, "symptom_flag": null, "notes": "ECLSS amine bed scrubbing cycle nominal. Background dosimeter quiet." },
+    { "minute": 30, "heart_rate_bpm": 68, "hrv_rmssd_ms": 52.0, "spo2_pct": 99.0, "core_temp_c": 36.8, "ambient_co2_mmHg": 1.2, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.2, "symptom_flag": null, "notes": "Science payload data collection ongoing. Crew condition nominal." }
+  ]
+}
