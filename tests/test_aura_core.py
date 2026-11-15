@@ -89,6 +89,26 @@ def test_safety_rules():
     assert co2_eval["state"] == "EMERGENCY", f"Expected EMERGENCY, got {co2_eval['state']}"
     assert any("HYPERCAPNIA" in h["type"] for h in co2_eval["hazards"])
 
+    # Hypoxia critical test (SpO2 < 88%)
+    hypoxia_eval = safety.evaluate({
+        "cumulative_dose_mSv": 2.0,
+        "ambient_co2_mmHg": 1.5,
+        "heart_rate_bpm": 85,
+        "spo2_pct": 86.0
+    })
+    assert hypoxia_eval["state"] == "EMERGENCY"
+    assert any("HYPOXIA" in h["type"] for h in hypoxia_eval["hazards"])
+
+    # Bradycardia test (HR < 50 bpm)
+    brady_eval = safety.evaluate({
+        "cumulative_dose_mSv": 2.0,
+        "ambient_co2_mmHg": 1.5,
+        "heart_rate_bpm": 38,
+        "spo2_pct": 98.0
+    })
+    assert brady_eval["state"] == "ALERT"
+    assert any("BRADYCARDIA" in h["type"] for h in brady_eval["hazards"])
+
     print("  -> Deterministic Safety Engine passed all NASA threshold boundaries!")
 
 
@@ -195,6 +215,13 @@ def test_telemetry_quality():
     bad = SensorQualityGate.validate({"heart_rate_bpm": 350, "spo2_pct": 120})
     assert bad["valid"] is False
     assert len(bad["issues"]) == 2
+    # Nominal stream test
+    nom_file = PROJECT_ROOT / "data" / "scenario_nominal_baseline.json"
+    nom_stream = TelemetryStream(nom_file)
+    assert nom_stream.total_steps() >= 5
+    for rec in nom_stream.records:
+        assert SensorQualityGate.validate(rec)["valid"] is True
+
     print("  -> Telemetry Quality Gate passed!")
 
 
