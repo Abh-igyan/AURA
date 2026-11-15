@@ -96,14 +96,60 @@ class DeterministicSafetyEngine:
                 "protocol_id": "NASA-OCHMO-TB-OCHMO-004-SEC4"
             })
 
-        # 3. Physiological Triage Differential
+        # 3. Physiological Triage Differential (H-4, H-5 fixes)
         clinical_notes = []
-        if co2 > 5.0 and spo2 >= 95.0:
-            clinical_notes.append("Environmental hypercapnia confirmed: elevated PCO2 with preserved SpO2 rules out primary respiratory failure.")
-        if hr >= self.vital_limits["heart_rate_bpm"]["tachycardia_caution"]:
+        spo2_limits = self.vital_limits["oxygen_saturation_pct"]
+        hr_limits = self.vital_limits["heart_rate_bpm"]
+
+        # SpO2 / Hypoxia — was completely absent; now generates hazards (H-4 fix)
+        if spo2 < spo2_limits["critical_hypoxia"]:
+            state = "EMERGENCY"
+            hazards.append({
+                "type": "HAZARD_HYPOXIA_CRITICAL",
+                "severity": "CRITICAL",
+                "trigger": f"SpO2 {spo2:.1f}% below critical hypoxia threshold ({spo2_limits['critical_hypoxia']}%). Immediate supplemental O2 required.",
+                "document": "NASA-STD-3001 Vol 1 Rev B",
+                "protocol_id": "NASA-HRP-JSC-CN-35747-SEC3.2"
+            })
+        elif spo2 < spo2_limits["caution_low"]:
+            if state not in ("EMERGENCY", "ALERT"):
+                state = "ALERT"
+            hazards.append({
+                "type": "HAZARD_HYPOXIA_ALERT",
+                "severity": "HIGH",
+                "trigger": f"SpO2 {spo2:.1f}% below caution threshold ({spo2_limits['caution_low']}%). Supplemental oxygen and monitoring required.",
+                "document": "NASA-STD-3001 Vol 1 Rev B",
+                "protocol_id": "NASA-HRP-JSC-CN-35747-SEC3.2"
+            })
+        elif spo2 < spo2_limits["nominal_min"]:
+            if state == "NOMINAL":
+                state = "WATCH"
+            clinical_notes.append(f"SpO2 {spo2:.1f}% below nominal minimum ({spo2_limits['nominal_min']}%). Monitor closely.")
+
+        # Bradycardia — was never checked (H-5 fix)
+        if hr < hr_limits["nominal_min"]:
+            if state not in ("EMERGENCY",):
+                state = "ALERT" if hr < 40 else ("ALERT" if state == "NOMINAL" else state)
+            hazards.append({
+                "type": "HAZARD_BRADYCARDIA",
+                "severity": "HIGH" if hr < 40 else "MODERATE",
+                "trigger": f"Bradycardia detected: {hr} bpm (nominal min {hr_limits['nominal_min']} bpm). Risk of cardiac compromise.",
+                "document": "NASA-STD-3001 Vol 1 Rev B",
+                "protocol_id": "NASA-HRP-JSC-CN-35747-SEC3.2"
+            })
+
+        # Tachycardia & HRV — escalate to WATCH when isolated vital-sign findings
+        if hr >= hr_limits["tachycardia_caution"]:
+            if state == "NOMINAL":
+                state = "WATCH"
             clinical_notes.append(f"Tachycardia detected ({hr} bpm) secondary to physiological strain.")
         if hrv <= self.vital_limits["heart_rate_variability_rmssd_ms"]["stress_autonomic_strain"]:
+            if state == "NOMINAL":
+                state = "WATCH"
             clinical_notes.append(f"Depressed HRV ({hrv:.1f} ms) confirms acute autonomic nervous system stress.")
+
+        if co2 > 5.0 and spo2 >= spo2_limits["nominal_min"]:
+            clinical_notes.append("Environmental hypercapnia confirmed: elevated PCO2 with preserved SpO2 rules out primary respiratory failure.")
 
         return {
             "state": state,
