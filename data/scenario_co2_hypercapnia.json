@@ -1,0 +1,17 @@
+{
+  "scenario_id": "SCENARIO-CO2-HABITAT-02",
+  "name": "ECLSS Carbon Dioxide Scrubber Failure (Hypercapnia)",
+  "location": "Transit Habitat Module (Deep Space Mars Transit)",
+  "crew_member": "Dr. Elena Rostova (Science Specialist)",
+  "module_volume_m3": 110.0,
+  "nominal_co2_removal_rate_kg_day": 4.1,
+  "time_series": [
+    { "minute": 0, "heart_rate_bpm": 68, "hrv_rmssd_ms": 52.0, "spo2_pct": 98.5, "core_temp_c": 36.8, "ambient_co2_mmHg": 2.9, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": null, "notes": "Nominal maintenance tasks." },
+    { "minute": 5, "heart_rate_bpm": 70, "hrv_rmssd_ms": 48.0, "spo2_pct": 98.5, "core_temp_c": 36.8, "ambient_co2_mmHg": 3.4, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": null, "notes": "CDRA desiccant valve cycle delay observed." },
+    { "minute": 10, "heart_rate_bpm": 76, "hrv_rmssd_ms": 42.0, "spo2_pct": 98.0, "core_temp_c": 36.9, "ambient_co2_mmHg": 5.2, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": "Mild frontal headache", "notes": "Caution threshold crossed (>5.0 mmHg). Mild cognitive strain." },
+    { "minute": 15, "heart_rate_bpm": 84, "hrv_rmssd_ms": 34.0, "spo2_pct": 98.0, "core_temp_c": 36.9, "ambient_co2_mmHg": 7.8, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": "Headache, dyspnea on walking", "notes": "Alert threshold crossed (>7.5 mmHg). Scrubber Bed-A heater open circuit." },
+    { "minute": 20, "heart_rate_bpm": 96, "hrv_rmssd_ms": 25.0, "spo2_pct": 97.5, "core_temp_c": 37.0, "ambient_co2_mmHg": 10.4, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": "Throbbing headache, tachypnea", "notes": "Emergency threshold crossed (>10.0 mmHg). Metabolic load halt mandated." },
+    { "minute": 25, "heart_rate_bpm": 110, "hrv_rmssd_ms": 18.0, "spo2_pct": 97.5, "core_temp_c": 37.1, "ambient_co2_mmHg": 13.6, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": "Confusion, visual tunnel effect", "notes": "CRITICAL HYPERCAPNIA. Auxiliary LiOH manual installation executed." },
+    { "minute": 30, "heart_rate_bpm": 92, "hrv_rmssd_ms": 29.0, "spo2_pct": 99.0, "core_temp_c": 36.9, "ambient_co2_mmHg": 6.8, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 14.2, "symptom_flag": "Symptoms abating under 100% O2 mask", "notes": "Emergency LiOH scrub active. CO2 levels dropping rapidly." }
+  ]
+}

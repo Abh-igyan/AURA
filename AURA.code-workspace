@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "name": "AURA - NASA Space Apps 2026",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.pytest_cache": true
+    },
+    "python.defaultInterpreterPath": "python"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "scenario_id": "SCENARIO-SPE-LUNAR-EVA-01",
+  "name": "Solar Particle Event on Lunar South Pole EVA",
+  "location": "Lunar Surface - Shackleton Crater Rim (EVA-3)",
+  "crew_member": "CDR Marcus Vance (EVA-Lead)",
+  "baseline_suit_shielding_g_cm2": 0.45,
+  "shelter_distance_meters": 420.0,
+  "time_to_shelter_at_rover_speed_min": 8.5,
+  "time_series": [
+    { "minute": 0, "heart_rate_bpm": 74, "hrv_rmssd_ms": 48.0, "spo2_pct": 98.0, "core_temp_c": 36.9, "dosimeter_rate_mSv_hr": 0.04, "cumulative_dose_mSv": 2.1, "ambient_co2_mmHg": 1.2, "symptom_flag": null, "notes": "Nominal geological sample collection." },
+    { "minute": 5, "heart_rate_bpm": 76, "hrv_rmssd_ms": 46.0, "spo2_pct": 98.0, "core_temp_c": 37.0, "dosimeter_rate_mSv_hr": 0.05, "cumulative_dose_mSv": 2.1, "ambient_co2_mmHg": 1.2, "symptom_flag": null, "notes": "Sample stowed on LRV rack." },
+    { "minute": 10, "heart_rate_bpm": 80, "hrv_rmssd_ms": 42.0, "spo2_pct": 97.0, "core_temp_c": 37.0, "dosimeter_rate_mSv_hr": 12.0, "cumulative_dose_mSv": 4.5, "ambient_co2_mmHg": 1.3, "symptom_flag": null, "notes": "CCMC DONKI SEP Alert received: S3 storm arrival." },
+    { "minute": 12, "heart_rate_bpm": 86, "hrv_rmssd_ms": 38.0, "spo2_pct": 97.0, "core_temp_c": 37.1, "dosimeter_rate_mSv_hr": 140.0, "cumulative_dose_mSv": 18.2, "ambient_co2_mmHg": 1.3, "symptom_flag": null, "notes": "Proton flux rising sharply across >100 MeV channel." },
+    { "minute": 15, "heart_rate_bpm": 95, "hrv_rmssd_ms": 28.0, "spo2_pct": 97.0, "core_temp_c": 37.1, "dosimeter_rate_mSv_hr": 480.0, "cumulative_dose_mSv": 62.0, "ambient_co2_mmHg": 1.4, "symptom_flag": "Mild dizziness", "notes": "Watch threshold crossed (50 mSv). Ingress recommended." },
+    { "minute": 18, "heart_rate_bpm": 105, "hrv_rmssd_ms": 22.0, "spo2_pct": 96.0, "core_temp_c": 37.2, "dosimeter_rate_mSv_hr": 650.0, "cumulative_dose_mSv": 135.0, "ambient_co2_mmHg": 1.4, "symptom_flag": "Fatigue and nausea", "notes": "Alert threshold crossed (150 mSv). Rover transit initiated." },
+    { "minute": 22, "heart_rate_bpm": 118, "hrv_rmssd_ms": 14.0, "spo2_pct": 96.0, "core_temp_c": 37.3, "dosimeter_rate_mSv_hr": 820.0, "cumulative_dose_mSv": 215.0, "ambient_co2_mmHg": 1.5, "symptom_flag": "Acute nausea, emesis reflex", "notes": "Approaching NASA-STD-3001 single-event limit (250 mSv)." },
+    { "minute": 25, "heart_rate_bpm": 124, "hrv_rmssd_ms": 11.0, "spo2_pct": 96.0, "core_temp_c": 37.4, "dosimeter_rate_mSv_hr": 910.0, "cumulative_dose_mSv": 268.0, "ambient_co2_mmHg": 1.5, "symptom_flag": "Nausea, mild disorientation", "notes": "EMERGENCY: Single-event limit exceeded (268 mSv > 250 mSv). Airlock reached." },
+    { "minute": 30, "heart_rate_bpm": 112, "hrv_rmssd_ms": 16.0, "spo2_pct": 97.0, "core_temp_c": 37.2, "dosimeter_rate_mSv_hr": 2.2, "cumulative_dose_mSv": 272.0, "ambient_co2_mmHg": 2.0, "symptom_flag": "Post-exposure exhaustion", "notes": "Inside hydrogenous habitat storm haven. Radiation rate shielded." }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "standard": "NASA-STD-3001 Volume 1 & Volume 2",
+  "document_title": "NASA Spaceflight Human-System Standard: Crew Health and Habitability",
+  "authority": "Office of the Chief Health and Medical Officer (OCHMO), NASA Headquarters",
+  "radiation_limits": {
+    "single_event_effective_dose_limit_mSv": 250.0,
+    "career_effective_dose_limit_mSv": 600.0,
+    "blood_forming_organs_30_day_limit_mGy_Eq": 250.0,
+    "eye_lens_30_day_limit_mGy_Eq": 1000.0,
+    "skin_30_day_limit_mGy_Eq": 1500.0,
+    "operational_rules": {
+      "nominal_rate_max_mSv_hr": 0.05,
+      "watch_threshold_cumulative_mSv": 50.0,
+      "alert_threshold_cumulative_mSv": 150.0,
+      "emergency_abort_eva_mSv": 250.0
+    }
+  },
+  "atmospheric_co2_limits": {
+    "reference": "Spacecraft Maximum Allowable Concentrations (SMAC) & NASA-STD-3001 Vol 2 Rev C",
+    "nominal_partial_pressure_mmHg": 3.0,
+    "caution_partial_pressure_mmHg": 5.0,
+    "alert_partial_pressure_mmHg": 7.5,
+    "emergency_evacuation_partial_pressure_mmHg": 10.0,
+    "symptoms_progression": {
+      "3.0_mmHg": "Nominal, well adapted crew baseline.",
+      "5.0_mmHg": "Mild headache in sensitive crew, peripheral vasodilation.",
+      "7.5_mmHg": "Dyspnea on mild exertion, headache, reduced cognitive performance.",
+      "10.0_mmHg": "Severe headache, lethargy, mental confusion, tachycardia.",
+      "15.0_mmHg": "Visual disturbance, hyperventilation, acute hypercapnia risk."
+    }
+  },
+  "vital_signs_thresholds": {
+    "heart_rate_bpm": {
+      "nominal_min": 50,
+      "nominal_max": 100,
+      "tachycardia_caution": 110,
+      "critical_high": 140
+    },
+    "oxygen_saturation_pct": {
+      "nominal_min": 95.0,
+      "caution_low": 92.0,
+      "critical_hypoxia": 88.0
+    },
+    "core_body_temperature_celsius": {
+      "nominal_min": 36.5,
+      "nominal_max": 37.5,
+      "hyperthermia_caution": 38.0,
+      "fever_critical": 39.0
+    },
+    "heart_rate_variability_rmssd_ms": {
+      "nominal_min": 30.0,
+      "stress_autonomic_strain": 18.0,
+      "acute_distress": 10.0
+    }
+  }
+}

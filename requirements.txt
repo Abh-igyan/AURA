@@ -1,0 +1,11 @@
+# AURA Core System Requirements
+streamlit>=1.28.0
+plotly>=5.18.0
+pandas>=2.0.0
+
+# Optional High-Speed Local Neural Embeddings & Local SLM:
+# Note: AURA includes a built-in subword vector space engine and 0-RAM offline clinical synthesizer.
+# To run local neural models via Ollama:
+#   1. Install Ollama (https://ollama.ai)
+#   2. Run: ollama run llama3.2:1b  (Takes only ~1.3 GB RAM, perfect for 8GB RAM laptops)
+#   3. (Optional) pip install sentence-transformers (for all-MiniLM-L6-v2 dense embeddings)

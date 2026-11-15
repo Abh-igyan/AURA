@@ -1,0 +1,97 @@
+[
+  {
+    "id": "NASA-HRP-JSC-CN-35747-SEC3.2",
+    "document": "NASA HRP Evidence Report: Risk of Acute Radiation Syndromes Due to Solar Particle Events",
+    "section": "Section 3.2: Prodromal Radiation Sickness & Clinical Latency",
+    "category": "RADIATION_SPE",
+    "keywords": ["solar particle event", "radiation", "dose", "nausea", "vomiting", "shelter", "proton flux", "spe", "eva abort"],
+    "summary": "Clinical protocol for managing acute radiation exposure and Acute Radiation Syndrome (ARS) during high-energy solar storms.",
+    "protocol_steps": [
+      "Immediate Action: Terminate all Extravehicular Activity (EVA) immediately and retreat to spacecraft storm shelter (SPE storm haven / water-walled module).",
+      "Shielding Optimization: Position water storage containers and polyethylene bricks around crew resting berths to maximize hydrogenous shielding mass.",
+      "Prodromal Symptom Monitoring: Initiate vital sign logging every 15 minutes. Prodromal symptoms (nausea, vomiting, fatigue) typically manifest 1 to 4 hours post-exposure for doses > 500 mGy and up to 48 hours for doses 250-500 mSv.",
+      "Medical Countermeasures: Administer Ondansetron (4mg to 8mg PO) for nausea prophylaxis if crew member reports emetic discomfort.",
+      "Hydration Protocol: Maintain oral electrolyte hydration at 150-200 mL/hour to counter fluid shifts and hypovolemia.",
+      "Ground Telemetry Sync: Package blood dosimeter readings and chronological symptom logs for high-priority burst transmission to Earth upon comms re-acquisition."
+    ],
+    "citations": "JSC-CN-35747 (2016), NASA Human Research Program Space Radiation Element."
+  },
+  {
+    "id": "NASA-OCHMO-TB-OCHMO-004-SEC4",
+    "document": "NASA Technical Brief: Spacecraft Internal Atmospheric Quality and Carbon Dioxide Management",
+    "section": "Section 4.1: Acute Hypercapnia Protocol and ECLSS Scrubber Failure",
+    "category": "ENVIRONMENTAL_CO2",
+    "keywords": ["hypercapnia", "co2", "carbon dioxide", "scrubber", "cdra", "headache", "confusion", "lioh", "dyspnea", "breathing"],
+    "summary": "Emergency management procedures for elevated spacecraft cabin PCO2 resulting from regenerative scrubber degradation.",
+    "protocol_steps": [
+      "Metabolic Load Reduction: Command all crew members to halt physical exercise and vigorous manual operations immediately to reduce internal CO2 production by 60%.",
+      "Environmental Triage: Confirm oxygen partial pressure (PO2) and SpO2. If SpO2 is nominal (>95%) while ambient PCO2 is >7.5 mmHg, rule out primary respiratory/hypoxic distress and diagnose pure environmental hypercapnia.",
+      "ECLSS Reconfiguration: Transition primary Solid Amine Vacuum Desorption (SAVD) or Carbon Dioxide Removal Assembly (CDRA) from primary bed to secondary redundant bed.",
+      "Lithium Hydroxide (LiOH) Canister Deployment: If automated CDRA fails to arrest CO2 climb within 15 minutes, unbox and manually install auxiliary non-regenerative LiOH emergency absorption canisters.",
+      "Emergency Respiratory Protection: If ambient PCO2 exceeds 12.0 mmHg (1.6%), order crew to don Portable Breathing Apparatus (PBA) or Quick-Don masks supplying 100% O2 to prevent hypercapnic narcosis.",
+      "Ventilation Scrub: Inspect inter-module air diffusers and ventilation fans to prevent localized 'CO2 pocketing' around crew heads during microgravity rest."
+    ],
+    "citations": "NASA-STD-3001 Vol 2 Rev C; NASA JSC Space Medicine Clinical Guidance 2023."
+  },
+  {
+    "id": "NASA-CHECS-CARDIO-ACLS-2023",
+    "document": "NASA Crew Health Care System (CHeCS): Cardiovascular Emergencies & Advanced Cardiac Life Support (ACLS)",
+    "section": "Section 3.1: In-Flight Acute Coronary Syndrome (ACS), Myocardial Infarction & Cardiac Arrest",
+    "category": "CARDIOVASCULAR_ACLS",
+    "keywords": ["heart attack", "cardiac arrest", "chest pain", "angina", "myocardial infarction", "aed", "defibrillator", "aspirin", "nitroglycerin", "cpr", "arrhythmia", "coronary"],
+    "summary": "Immediate resuscitation and pharmacologic stabilization protocol for acute chest pain, suspected myocardial infarction (heart attack), and cardiac arrest in microgravity.",
+    "protocol_steps": [
+      "Immediate Patient Rest & High-Flow Oxygen: Command patient to cease all physical movement immediately. Position in semi-reclined resting posture and apply 100% oxygen via Non-Rebreather mask or PBA at 10-15 L/min.",
+      "Defibrillator Deployment & Rhythm Analysis: Retrieve Crew Medical Kit Defibrillator (Tempus Pro / AED). Attach multifunction defibrillator pads (right anterior infraclavicular and left mid-axillary line) to assess for shockable arrhythmias (VF / Pulseless VT).",
+      "Pharmacological Countermeasures (Acute Chest Pain): If systolic BP > 100 mmHg, administer chewable Aspirin 324 mg (four 81 mg tablets) and Nitroglycerin 0.4 mg sublingually every 5 minutes (max 3 doses). Hold Nitroglycerin if SBP < 90 mmHg or heart rate < 50 bpm.",
+      "Microgravity CPR Restraint System (CMRS): In event of pulseless arrest, rapidly strap patient to Crew Medical Restraint System (CMRS); operator must anchor feet in restraint loops to deliver 100-120 compressions/min (5-6 cm depth) against zero-g recoil.",
+      "Advanced Resuscitation Protocol: Prepare Epinephrine 1 mg (1:10,000 IV/IO) every 3-5 minutes if cardiac arrest persists. Establish peripheral IV or sternal intraosseous (IO) access via Fast1 kit."
+    ],
+    "citations": "NASA JSC Space Medicine Operations Clinical Practice Guidelines; ISS CHeCS Medical Checklist Rev E."
+  },
+  {
+    "id": "NASA-HRP-SANS-EVIDENCE-2022",
+    "document": "NASA Human Research Program: Spaceflight Associated Neuro-ocular Syndrome (SANS)",
+    "section": "Section 2.4: Intracranial Pressure Shifts and Visual Acuity Management",
+    "category": "NEURO_OCULAR_SANS",
+    "keywords": ["sans", "eyes", "vision", "blur", "optic disc", "edema", "headache", "intracranial pressure", "choroidal folds", "cotton wool spots"],
+    "summary": "Clinical protocol for assessing and managing cephalad fluid shifts, optic nerve sheath swelling, and progressive hyperopic refractive shifts in microgravity.",
+    "protocol_steps": [
+      "Diagnostic Assessment: Perform optical coherence tomography (OCT) or fundoscopy to quantify papilledema and optic disc swelling. Record visual acuity changes using Snellen chart.",
+      "Countermeasure - Lower Body Negative Pressure (LBNP): Apply 20 to 30 mmHg LBNP for 2 hours daily during rest cycles to draw fluid footward and re-establish terrestrial venous pressure gradients.",
+      "Resistive Exercise Compliance: Verify crew adherence to Advanced Resistive Exercise Device (ARED) protocol; limit high-intensity Valsalva maneuvers during deadlifts that spike transient central venous pressure.",
+      "Fluid Distribution Management: Adjust dietary sodium intake to < 2,300 mg/day to reduce total extracellular fluid volume expansion.",
+      "Refractive Correction: Issue temporary adjustable spaceflight corrective lenses to compensate for progressive hyperopic visual shifts."
+    ],
+    "citations": "NASA HRP SANS Evidence Book (2022); NASA Johnson Space Center Clinical Practice Guidelines."
+  },
+  {
+    "id": "NASA-EVA-FLIGHT-RULE-B13-104",
+    "document": "NASA Generic Flight Rules: EVA Crew Health and In-Suit Decompression Procedures",
+    "section": "Flight Rule B13-104: Real-time In-Suit Physiological Anomaly Criteria",
+    "category": "EVA_PHYSIOLOGY",
+    "keywords": ["eva", "suit", "decompression", "dcs", "bends", "joint pain", "spacewalk", "pressure", "oxygen pre-breathe"],
+    "summary": "Threshold criteria mandating immediate EVA termination and treatment for suspected in-suit decompression sickness (DCS).",
+    "protocol_steps": [
+      "Mandatory In-Suit Termination Triggers: Sustained heart rate > 85% HR_max for > 5 minutes, sustained SpO2 < 90% for > 60 seconds, or dosimeter accumulation rate > 5.0 mSv/hr.",
+      "Crew Recall Procedure: Lead spacewalker instructs secondary crew member to begin umbilical wrap and tool stowage; return to airlock under Buddy-Check protocol within 12 minutes.",
+      "Pre-Breathe & Hyperbaric Treatment: If joint pain or bends symptoms manifest post-ingress, repressurize suit to maximum operating pressure (8.3 psid) on 100% O2 to establish in-suit hyperbaric bubble resorption."
+    ],
+    "citations": "NASA Flight Operations Directorate (FOD) Flight Rule Book Vol B."
+  },
+  {
+    "id": "NASA-HRP-BEHAVIORAL-HEALTH-2021",
+    "document": "NASA Human Research Program: Behavioral Health and Performance in Long-Duration Exploration Missions",
+    "section": "Section 5.1: Sleep Loss, Circadian Disruption, and Acute Cognitive Fatigue",
+    "category": "BEHAVIORAL_HEALTH",
+    "keywords": ["sleep", "fatigue", "tired", "insomnia", "circadian", "mood", "depression", "anxiety", "melatonin", "exhaustion"],
+    "summary": "Protocol for counteracting circadian phase desynchrony, chronic sleep debt, and cognitive performance degradation during confined deep-space flight.",
+    "protocol_steps": [
+      "Objective Fatigue Audit: Review PVT (Psychomotor Vigilance Task) scores; if reaction time lapses exceed 3 standard deviations above baseline, restrict crew member from safety-critical manual flight operations.",
+      "Dynamic Lighting Adjustment: Shift habitat Solid State Lighting Modules (SSLM) to blue-enriched white light (460 nm peak) during mission wake phase, and dim to red-shifted low-lux mode 2 hours prior to sleep cycle.",
+      "Pharmacological Countermeasures: Administer low-dose Melatonin (0.3mg to 0.5mg PO) 30 minutes before sleep period if phase advance is required; avoid long-acting hypnotics (Zolpidem) unless approved by CMO.",
+      "Sleep Environment Hygiene: Verify crew sleeping berth sound dampening meets NC-40 acoustic criteria and carbon dioxide ventilation ducting maintains > 15 CFM airflow to prevent local CO2 pooling."
+    ],
+    "citations": "NASA HRP Behavioral Health & Performance Evidence Report (2021)."
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "source": "NASA Space Weather Database Of Notifications, Knowledge, Information (DONKI)",
+  "endpoint": "https://ccmc.gsfc.nasa.gov/tools/DONKI/",
+  "citation": "Data courtesy of Community Coordinated Modeling Center (CCMC) / NASA Goddard Space Flight Center",
+  "catalog_id": "SEP-2024-05-11T02:15:00-SEP-001",
+  "event_type": "Solar Energetic Particle (SEP) / Coronal Mass Ejection Associated Event",
+  "event_time_utc": "2024-05-11T02:15:00Z",
+  "instruments": [
+    {
+      "displayName": "GOES-16 >10 MeV Proton Flux",
+      "energy_channel": ">10 MeV",
+      "peak_flux_pfu": 420.0,
+      "threshold_crossing_time": "2024-05-11T02:20:00Z"
+    },
+    {
+      "displayName": "GOES-16 >100 MeV Proton Flux",
+      "energy_channel": ">100 MeV",
+      "peak_flux_pfu": 18.5,
+      "threshold_crossing_time": "2024-05-11T03:05:00Z"
+    }
+  ],
+  "associated_cme": {
+    "cme_id": "2024-05-10T18:36:00-CME-001",
+    "speed_km_s": 1280.0,
+    "half_width_deg": 65.0,
+    "direction_earth_lunar": "Direct trajectory"
+  },
+  "space_weather_scale": "S3 - Strong Solar Radiation Storm",
+  "operational_impact": "Severe biological radiation hazard to astronauts during extravehicular activity (EVA); immediate shelter-in-place recommended under NASA-STD-3001 Volume 2."
+}
