@@ -57,7 +57,14 @@ class MedicalToolsRegistry:
         Tool: Deterministic cabin atmospheric buildup calculation.
         Estimates time until critical hypercapnia (10.0 mmHg) without scrubbing.
         """
-        co2_generation_rate_mmHg_hr = (crew_count * 0.04) * (760.0 / volume_m3)
+        # H-6 fix: corrected CO2 buildup physics.
+        # Human CO2 production ≈ 200 mL/min = 0.012 m³/hr per person.
+        # Volume fraction contribution per person per hour = 0.012 / volume_m3.
+        # CO2 partial pressure rise rate (mmHg/hr) = volume_fraction_rate * 760 mmHg.
+        # With scrubber fully failed, this gives the worst-case buildup rate.
+        co2_production_m3_hr_per_person = 0.012  # standard metabolic rate
+        co2_volume_fraction_rate = (crew_count * co2_production_m3_hr_per_person) / volume_m3
+        co2_generation_rate_mmHg_hr = co2_volume_fraction_rate * 760.0
         limit_mmHg = 10.0
         delta_to_limit = max(0.0, limit_mmHg - current_pco2_mmHg)
 
