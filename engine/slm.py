@@ -62,10 +62,12 @@ RULES:
             self.active_backend = "GROQ_CLOUD"
             return "Groq Cloud API (Llama 3.3 70B / 8B)"
 
-        # 3. Check OpenAI API
+        # 3. Check OpenAI API (L-1 fix: route to offline synthesizer; OpenAI handler not yet implemented)
         if os.environ.get("OPENAI_API_KEY"):
-            self.active_backend = "OPENAI_CLOUD"
-            return "OpenAI API"
+            # OpenAI integration is planned; for now fall through to the offline synthesizer
+            # so the app never silently misfires. Remove this comment when implemented.
+            self.active_backend = "OFFLINE_SYNTHESIZER"
+            return "AURA Edge Clinical Synthesizer (Local 0-RAM Fallback)"
 
         # 4. Fallback: Edge Clinical Synthesizer
         self.active_backend = "OFFLINE_SYNTHESIZER"
@@ -82,6 +84,7 @@ RULES:
         Synthesizes astronaut inquiry, live telemetry, and retrieved NASA protocols
         into a definitive clinical assessment and action plan.
         """
+        # Step 1: BUILD SIMILARITY-GROUNDED PROMPT
         # Step 2: SIMILARITY CONFIDENCE GATE
         top_score = 0.0
         if retrieved_protocols:
@@ -151,11 +154,19 @@ Deterministic Hazard Flag: {hazard_summary}
 Provide your Flight Surgeon clinical assessment and immediate directives.
 """
 
+        # H-3 fix: prefer exact tag match first, then prefix/substring fallback
         # 1. Try local Ollama if active
         if self.active_backend == "OLLAMA_LOCAL":
             model_to_use = self.preferred_model
-            if self.available_ollama_models and not any(self.preferred_model in m for m in self.available_ollama_models):
-                model_to_use = self.available_ollama_models[0]
+            if self.available_ollama_models:
+                exact = [m for m in self.available_ollama_models if m == self.preferred_model]
+                prefix = [m for m in self.available_ollama_models if m.startswith(self.preferred_model.split(":")[0])]
+                if exact:
+                    model_to_use = exact[0]
+                elif prefix:
+                    model_to_use = prefix[0]
+                elif self.available_ollama_models:
+                    model_to_use = self.available_ollama_models[0]
 
             response_text = self._call_ollama(model_to_use, prompt)
             if response_text:
