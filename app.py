@@ -198,8 +198,11 @@ def load_aura_engines():
     agent = FlightSurgeonAgent(safety, tools, slm)
     return safety, rag, tools, slm, agent
 
-safety_engine, rag_engine, tools_registry, slm_engine, agent = load_aura_engines()
-
+try:
+    safety_engine, rag_engine, tools_registry, slm_engine, agent = load_aura_engines()
+except FileNotFoundError as _e:
+    st.error(f"⚠️ AURA ENGINE INIT FAILURE: Required data file missing — {_e}. Please ensure `data/` directory is complete.")
+    st.stop()
 # ==========================================
 # SIDEBAR: AVIONICS CONFIGURATION & LINK
 # ==========================================
@@ -229,7 +232,7 @@ if "Solar" in scenario_choice:
 elif "CO2" in scenario_choice:
     scenario_file = DATA_DIR / "scenario_co2_hypercapnia.json"
 else:
-    scenario_file = DATA_DIR / "scenario_solar_radiation.json"
+    scenario_file = DATA_DIR / "scenario_nominal_baseline.json"
 
 sim_stream = TelemetryStream(scenario_file)
 
@@ -411,7 +414,7 @@ with tab_cockpit:
         df_history = pd.DataFrame(history)
         fig = go.Figure()
 
-        if "cumulative_dose_mSv" in df_history.columns and df_history["cumulative_dose_mSv"].max() > 10.0:
+        if "cumulative_dose_mSv" in df_history.columns and "Solar" in scenario_choice:
             fig.add_trace(go.Scatter(x=df_history["minute"], y=df_history["cumulative_dose_mSv"], name="Absorbed Dose (mSv)", line=dict(color="#ef4444", width=2.5)))
             fig.add_hline(y=250.0, line_dash="dash", line_color="#ef4444", annotation_text="NASA-STD-3001 Single-Event Limit (250 mSv)", annotation_font=dict(color="#ef4444", size=10))
             fig.add_trace(go.Scatter(x=df_history["minute"], y=df_history["heart_rate_bpm"], name="Heart Rate (BPM)", yaxis="y2", line=dict(color="#38bdf8", width=1.8)))
@@ -493,7 +496,7 @@ with tab_cockpit:
                 <div class="doc-ref">REF: {item['citation']} | ID: {item['source_id']}</div>
             </div>
             """, unsafe_allow_html=True)
-            st.checkbox(f"Acknowledge Step {item['step_number']} Executed by Crew", key=f"step_ck_{item['step_number']}")
+            st.checkbox(f"Acknowledge Step {item['step_number']} Executed by Crew", key=f"step_ck_{item.get('source_id', 'UNK')}_{item['step_number']}")
 
         # Collapsible Engineering Audit Log for Ground Crew
         with st.expander("AUDITABLE TOOL EXECUTION LOG (GROUND SYNC)", expanded=False):
@@ -530,7 +533,7 @@ with tab_intercom:
     with p_c2:
         if st.button("Cardiac: Acute Chest Pain / Myocardial Infarction"):
             preset_query = "Astronaut experiencing crushing substernal chest pain, diaphoresis, and left arm numbness. Suspected heart attack / acute coronary syndrome."
-        if p_c2.button("Vision: Right Eye Blurriness / SANS Optic Edema"):
+        if st.button("Vision: Right Eye Blurriness / SANS Optic Edema"):
             preset_query = "Vision in right eye is blurring during treadmill exercise. Suspecting papilledema or SANS."
     with p_c3:
         if st.button("EVA: Joint Bends / Suspected DCS"):
@@ -544,7 +547,7 @@ with tab_intercom:
         placeholder="e.g., Severe substernal chest pain radiating to jaw and left arm..."
     )
 
-    if st.button("EXECUTE CLINICAL CONSULTATION", type="primary") or astronaut_input:
+    if st.button("EXECUTE CLINICAL CONSULTATION", type="primary") and astronaut_input.strip():
         if astronaut_input.strip():
             with st.spinner("Executing dense vector retrieval and clinical synthesis..."):
                 consult = agent.consult(
@@ -607,7 +610,7 @@ with tab_guidelines:
             st.markdown(f"**Clinical Summary:** {doc['summary']}")
             st.markdown(f"**Authority Citation:** `{doc['citations']}`")
             st.markdown("**Authoritative Protocol Steps:**")
-            for i, step in enumerate(doc["protocol_steps"], 1):
+            for i, step in enumerate(doc.get("protocol_steps", []), 1):
                 st.markdown(f"{i}. {step}")
 
 # Footer
@@ -616,4 +619,5 @@ col_f1, col_f2 = st.columns([3, 1])
 with col_f1:
     st.caption("AURA // AUTONOMOUS UNIVERSAL RESCUE & ASTRONAUT-HEALTH AGENT | NASA SPACE APPS 2026 | 100% OFFLINE EDGE ARCHITECTURE")
 with col_f2:
-    st.button("PACKAGE GROUND TELEMETRY BURST")
+    if st.button("PACKAGE GROUND TELEMETRY BURST"):
+        st.toast("📡 Telemetry burst packaged for uplink queue.", icon="📡")
